@@ -1,0 +1,20 @@
+C++ Library & Command-Line interface prototype for the Dashlane API based on the Dashlane CLI v1.5.0.
+This is a personal hobby project.
+
+Requirements for compiling:
+	- Visual Studio 2022
+	- Application Access and Secret keys (fill the strings in _private/AccessKeys.h)
+
+CLI Interface:
+	dashlane-c-cli.exe help
+
+Dashlane API Library:
+	Please see the cli project for implementation/usage example
+
+--
+
+More documentation may come if I get enough time to dedicate to this project.
+
+--
+
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/)

@@ -1,0 +1,16 @@
+set(DCCLI_CLI_DIR ${OCT_BASE_DIR}/code/dashlane-cli)
+set(DCCLI_LIB_DIR ${OCT_BASE_DIR}/code/dashlane-lib)
+message(STATUS "DCCLI_CLI_DIR = ${DCCLI_CLI_DIR}")
+message(STATUS "DCCLI_LIB_DIR = ${DCCLI_LIB_DIR}")
+
+# Build chain
+add_subdirectory(${OCT_EXT_LIBS_DIR}/argon2)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/base64pp)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/clip)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/curl)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/keychain)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/pugixml)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/sqlite3cpp)
+add_subdirectory(${OCT_EXT_LIBS_DIR}/zlib)
+add_subdirectory(${DCCLI_LIB_DIR})
+add_subdirectory(${DCCLI_CLI_DIR})
