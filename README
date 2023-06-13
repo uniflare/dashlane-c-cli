@@ -4,9 +4,10 @@ This is a personal hobby project.
 Requirements for compiling:
 	- Visual Studio 2022
 	- Application Access and Secret keys (fill the strings in _private/AccessKeys.h)
+	- SDKs (extract the sdks.7z archive to /code/sdks/)
 
 CLI Interface:
-	dashlane-c-cli.exe help
+	dashlane-c-cli.exe --help
 
 Dashlane API Library:
 	Please see the cli project for implementation/usage example
