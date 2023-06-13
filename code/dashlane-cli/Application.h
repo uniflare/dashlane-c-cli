@@ -1,7 +1,6 @@
 #pragma once
 
 #include <dashlane/dashlane.h>
-#include <dashlane/test/serialization.h>
 
 #include <CLI/CLI.hpp>
 

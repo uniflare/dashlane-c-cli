@@ -5,9 +5,6 @@ oct_define_sources(
 
     "CMakeLists.txt"
 
-    GROUP "include/dashlane/Test"
-        "include/dashlane/Test/Serialization.h"
-
     GROUP "include/dashlane"
         "include/dashlane/API.h"
         "include/dashlane/Dashlane.h"
@@ -40,9 +37,6 @@ oct_define_sources(
         "src/Api/Endpoints/PerformEmailTokenVerification.h"
         "src/Api/Endpoints/PerformTotpVerification.h"
         "src/Api/Endpoints/RequestEmailTokenVerification.h"
-
-    GROUP "src/Test"
-        "src/Test/Serialization.cpp"
 
     GROUP "src/Types"
         "src/Types/Auth.h"
