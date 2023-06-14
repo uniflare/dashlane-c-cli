@@ -312,11 +312,6 @@ namespace Dashlane
 			SetLocalKey(context);
 		}
 
-		if (context.secrets.masterPassword.empty())
-		{
-			return EDashlaneError::RequireMasterPassword;
-		}
-
 		if (context.secrets.device.accessKey.empty())
 		{
 			EDashlaneError rc = GetDeviceConfiguration(context);
@@ -330,6 +325,11 @@ namespace Dashlane
 				// TODO: We can lways ask for password again, and if device pass != context pass, we prefer context
 				context.applicationData.shouldUpdateDeviceConfiguration = true;
 			}
+		}
+
+		if (context.secrets.masterPassword.empty())
+		{
+			return EDashlaneError::RequireMasterPassword;
 		}
 
 		// Used with TOTP type authentication data
