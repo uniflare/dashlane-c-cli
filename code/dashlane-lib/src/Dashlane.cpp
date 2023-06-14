@@ -479,7 +479,8 @@ uint32_t Dash_QueryTransactions(DashlaneContext* pContext, DashlaneQueryContext*
 	ENSURE_POINTER(pInternalContext, EDashlaneError::InvalidContext);
 	ENSURE_POINTER(pInternalQueryContext, EDashlaneError::InvalidContext);
 
-	if (EDashlaneError rc = GetOrUpdateSecrets(*pInternalContext); rc != EDashlaneError::NoError)
+	EDashlaneError rc = GetOrUpdateSecrets(*pInternalContext);
+	if (rc != EDashlaneError::NoError)
 	{
 		if (rc == EDashlaneError::InvalidMasterPassword)
 			pInternalContext->secrets.masterPassword.clear();
@@ -495,22 +496,22 @@ uint32_t Dash_QueryTransactions(DashlaneContext* pContext, DashlaneQueryContext*
 		const uint64_t nextSyncTime = lastSyncTime + 3600;
 		if (nextSyncTime < Utility::GetUnixTimestamp())
 		{
-			EDashlaneError rc = (EDashlaneError)Dash_SynchronizeVaultData(pContext);
+			rc = (EDashlaneError)Dash_SynchronizeVaultData(pContext);
 			if (rc != EDashlaneError::NoError)
 				return RC_TO_INT(rc);
 		}
 	}
 
 	std::vector<Dashlane::SRawTransactionBackupEdit> transactions;
-	if (EDashlaneError rc = pInternalContext->pDatabase->GetTransactions(*pInternalContext, pInternalQueryContext->typeMask, transactions); rc != EDashlaneError::NoError)
-	{
+	rc = pInternalContext->pDatabase->GetTransactions(*pInternalContext, pInternalQueryContext->typeMask, transactions);
+	if (rc != EDashlaneError::NoError)
 		return RC_TO_INT(rc);
-	}
 
 	for (const Dashlane::SRawTransactionBackupEdit& transaction : transactions)
 	{
 		nlohmann::ordered_json json;
-		if (EDashlaneError rc = ProcessTransaction(*pInternalContext, transaction, json); rc != EDashlaneError::NoError)
+		rc = ProcessTransaction(*pInternalContext, transaction, json);
+		if (rc != EDashlaneError::NoError)
 		{
 			if (rc == EDashlaneError::InvalidMasterPassword)
 				pInternalContext->secrets.masterPassword.clear();
@@ -546,9 +547,12 @@ uint32_t Dash_QueryTransactions(DashlaneContext* pContext, DashlaneQueryContext*
 
 		if (isMatch)
 			pInternalQueryContext->writerFunc(pInternalQueryContext->pUserPointer, json.dump().c_str(), json.size());
+
+		if (pInternalContext->applicationData.shouldUpdateDeviceConfiguration)
+			rc = UpdateDeviceConfiguration(*pInternalContext);
 	}
 
-	return RC_TO_INT(EDashlaneError::NoError);
+	return RC_TO_INT(rc);
 }
 
 uint32_t Dash_ResetVaultData(DashlaneContext* pContext, bool removeAllUsers)
