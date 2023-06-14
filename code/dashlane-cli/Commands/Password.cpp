@@ -56,7 +56,7 @@ namespace Dashlane
 						if (!password.empty())
 						if (output == "password")
 						{
-							std::cout << password;
+							std::cout << password << std::endl;
 						}
 						else
 						{
